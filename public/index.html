@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Rubinius X by rubinius-x</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Rubinius X</h1>
+        <h2></h2>
+        <a href="https://github.com/rubinius-x" class="button"><small>Follow me on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p><strong>A Ruby platform for composition and collaboration.</strong></p>
+
+<p>The internet has caused a fundamental change in general computing, yet many
+programming languages are solidly centered in the Windows 3.0 era,
+providing their equivalent to the Windows for Workgroups add-on to enable
+networking. Unfortunately, Ruby is one of those languages.</p>
+
+<p>To be relevant today, a programming language must provide simple yet powerful
+facilities for composition and collaboration. A language does <strong>not</strong> need
+general immutable state, purely pure functions, or complex type systems, no
+matter how inferred.</p>
+
+<p>Rubinius X is an experiment in modernizing Ruby. Rubinius X can be imagined as
+a time machine that brings the future to the present, enabling us to write
+modern programs now.</p>
+
+<p>The Rubinius X vision to enable composition and collaboration for programs,
+components, and systems is detailed below. These ideas will be tested through
+building useful concurrent and distributed applications.</p>
+
+<!-- Begin MailChimp Signup Form -->
+
+
+<div id="mc_embed_signup">
+<form action="http://rubini.us7.list-manage1.com/subscribe/post?u=72ad4855b528b6af79bd06543&amp;id=ff04cd71f9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+
+  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Your email address" required>
+  <input type="submit" value="I'm Interested!" name="subscribe" id="mc-embedded-subscribe" class="button">
+</form>
+</div>
+
+
+
+
+<!--End mc_embed_signup-->
+
+
+<h2>The Shiny New</h2>
+
+<h3>Promises and Non-blocking IO</h3>
+
+<p>Concurrency is essential for programs that collaborate or compose other
+components to efficiently use modern hardware. There are many approaches to
+concurrency. <a href="http://en.wikipedia.org/wiki/Futures_and_promises">Promises</a>
+compose well and are naturally represented in an object-oriented language.</p>
+
+<p>Ruby presently only provides threads as a concurrency mechanism. Threads are a
+primitive construct and difficult to use well. They do not compose easily and
+can be too costly to use as a general solution to many computing tasks.</p>
+
+<h3>Persistent and Concurrent Data Structures</h3>
+
+<p>Modeling data well is the single most important concern for writing useful
+applications. Wherever collaboration is centered on a data structure in a
+program, that data structure must enable correct concurrent operation.</p>
+
+<p>Much is made of immutability in some programming languages. But that
+immutability is often paper thin; just below the surface there is rampant
+mutation. Efficiently computing with complex structures as <em>values</em> requires
+this charade.</p>
+
+<p>In Ruby, there is this fundamentally broken concept of <em>frozen</em> objects. Broken
+because its implementation requires littering code with brittle checks. It also
+violates the principle of <em>pay for use</em>, requiring all code to pay the penalty
+of checking whether an object is frozen.</p>
+
+<p>In between a tyranny of immutability on the one hand and hacked together frozen
+objects on the other, there exists a simple, elegant domain of persistent, or
+<em>purely functional</em> data structures.</p>
+
+<h3>Mirrors and Object Capabilities</h3>
+
+<p>Composition is needed both between components and within components. The
+semantics of primitive operations and their composition must be clearly
+defined. <a href="http://bracha.org/mirrors.pdf">Mirrors</a> are a construct that
+provides structure for composition through encapsulation and separation of
+object and meta-object operations.</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Object-capability_model">Object capabilities</a>
+structure interactions to control collaboration. The ability to evaluate source
+code or invoke system operations should not be distributed willy-nilly
+throughout a program. Likewise, there is nothing inherently bad or dangerous
+about metaprogramming, but for maximum usability, it needs to be structured.</p>
+
+<h3>Code Loading</h3>
+
+<p>Code loading is the vital facility to enable combining components into a single
+running program. It needs to happen lazily, with clearly expressed
+dependencies, and the running program itself must be able to orchestrate it. In
+other words, it needs an API just like every other part of the system.</p>
+
+<h3>Primitives, Composition, and Consistency</h3>
+
+<p>Consistency is one of the most important characteristics of a system to aid
+understanding and the ability to evolve to meet changing demands. In Rubinius
+X, syntactic constructs that appear primitive simply delegate to the system.
+For example, a Hash literal like <code>{ a: 1 }</code> simply delegates to <code>Hash.new</code>. If
+the system refines <code>Hash.new</code>, it operates consistently everywhere.</p>
+
+<p>The primitive operations on objects are defined and the more complex operations
+are consistent compositions of those primitive operations. Modifying the system
+has knowable consequences.</p>
+
+<h3>Immutable Strings and ByteBuffers</h3>
+
+<p>Strings of characters are the most fundamental exchange format on the internet.
+They may be human-readable strings or collections of bytes, but they are the
+currency of collaboration.</p>
+
+<p>Making Strings immutable permits numerous simplifications and optimizations for
+collaboration and composition. Parsing and templated String construction are
+fundamental operations.</p>
+
+<p>ByteBuffers provide the facility for IO operations to collect data over time
+before handing off a completed object. ByteBuffers also permit encoding
+information to flow through a system.</p>
+
+<h3>The Values <em>nil</em> and <em>undefined</em></h3>
+
+<p>The singleton object <code>nil</code> is useful. It's reasonably equivalent to the empty
+set. Set operations with the empty set are well defined. For example, the
+intersection of two or more sets may produce the empty set, and the
+intersection of any set with the empty set is the empty set.</p>
+
+<p>The singleton object <code>undefined</code> means that no value is possible. The
+<code>undefined</code> object can be tested for <em>identically equal</em> to <code>some_obj</code> but
+cannot be sent any messages. If you get one and try to operate on it, an
+exception is raised.</p>
+
+<h3>Behaviors</h3>
+
+<p>Ruby has a confusing idea of "representing an X" versus "becoming an X". For
+example, generally, using <code>obj.to_s</code> returns a representation of <code>obj</code> as a
+String while using <code>obj.to_str</code> turns <code>obj</code> <em>into</em> a String, or something. In
+reality, it's very poorly defined in Ruby.</p>
+
+<p>There is no need for this confusion. If we focus on behavior, then we merely
+need a way to ask an object to provide something that behaves in a defined
+manner. It need not return a different object, but if it doesn't, then after
+requesting it behave a certain way, it should do so or return <code>undefined</code>.</p>
+
+<p>One of the most common places to describe behavior expectations is at method
+boundaries. In Rubinius X, a method definition like the following clearly
+expresses that String or Integer behavior is expected in the respective
+parameters:</p>
+
+<p><code>
+def exclaim(message: String(a), times: Integer(b))
+end
+</code></p>
+
+<p>The operations <code>String(a)</code> and <code>Integer(b)</code> are automatically performed before
+the method begins running so that <code>a</code> and <code>b</code> have the expected behavior.</p>
+
+<p>The preceding are not <em>types</em>. They are labels for behaviors. Where needed to
+disambiguate, they can be useful. They are rarely needed.</p>
+
+<h2>The Cleaning Up</h2>
+
+<h3>Encoding</h3>
+
+<p>The fact that some encodings are not convertible into one another is not solved
+by permitting any object to have any possible encoding.</p>
+
+<p>In Rubinius X, there is a single encoding for any running program. Transcoding
+facilities are available at IO boundaries and encoded bytes can be passed
+through the system using ByteBuffers.</p>
+
+<h3>Keywords and APIs</h3>
+
+<p>All APIs use keywords where necessary. There are no position-significant APIs
+like the following:</p>
+
+<p><code>
+IO.readlines( portname, separator=$/ [, options])
+IO.readlines( portname, limit [, options])
+IO.readlines( portname, separator, limit [, options])
+</code></p>
+
+<h3>Numerics</h3>
+
+<p>Numbers are rather well-defined in mathematics, at least at the level of
+undergraduate mathematics. Concepts like the reals embedding the rationals are
+basic.</p>
+
+<p>In Rubinius X, the numeric tower has Integer, Rational, Decimal, Complex and a
+defined coercion protocol based on the concept of embedding.</p>
+
+<h3>Purge the Perl</h3>
+
+<p>In general, anything inspired by Perl should be removed, but especially "magic
+globals" like <code>$_</code> or <code>$1</code>. They are easily replaced by simply sending messages
+to objects and providing objects as parameters. And so they are.</p>
+
+<h3>Global Variables</h3>
+
+<p>Gone. Period.</p>
+
+<!-- Begin MailChimp Signup Form -->
+
+
+<div id="mc_embed_signup">
+<form action="http://rubini.us7.list-manage1.com/subscribe/post?u=72ad4855b528b6af79bd06543&amp;id=ff04cd71f9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+
+  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Your email address" required>
+  <input type="submit" value="I'm Interested!" name="subscribe" id="mc-embedded-subscribe" class="button">
+</form>
+</div>
+
+
+
+
+<!--End mc_embed_signup-->
+
+
+
+
+        </section>
+
+        <aside id="sidebar">
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-44849712-1', 'rubini.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
