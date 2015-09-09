@@ -182,5 +182,3 @@ to objects and providing objects as parameters.
 
 Gone. Period.
 
-{% include mailchimp.html %}
-
