@@ -22,8 +22,6 @@ The Rubinius X vision to enable composition and collaboration for programs,
 components, and systems is detailed below. These ideas will be tested through
 building useful concurrent and distributed applications.
 
-{% include mailchimp.html %}
-
 ## The Shiny New
 
 ### Promises and Non-blocking IO
